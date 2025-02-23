@@ -6,7 +6,7 @@
  * Description:       Display cool, animated fly-out or fade box with related content.
  * Requires at least: 5.0
  * Requires PHP:      7.2
- * Version:           4.0.7
+ * Version:           4.1.0
  * Author:            Marcin Pietrzak
  * Author URI:        http://iworks.pl/
  * License:           GPLv2 or later
@@ -15,7 +15,7 @@
  * Domain Path:       /languages
  *
 
-Copyright 2011-2022 Marcin Pietrzak (marcin@iworks.pl)
+Copyright 2011-2025 Marcin Pietrzak (marcin@iworks.pl)
 
 this program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License, version 2, as
@@ -39,7 +39,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * static options
  */
-define( 'IWORKS_UPPREV_VERSION', '4.0.7' );
+define( 'IWORKS_UPPREV_VERSION', '4.1.0' );
 define( 'IWORKS_UPPREV_PREFIX', 'iworks_upprev_' );
 
 require_once dirname( __FILE__ ) . '/includes/common.php';
@@ -52,13 +52,3 @@ $iworks_upprev = new IworksUpprev();
 register_activation_hook( __FILE__, 'iworks_upprev_activate' );
 register_deactivation_hook( __FILE__, 'iworks_upprev_deactivate' );
 
-/**
- * Buy me a coffe!
- */
-include_once $includes . '/iworks/rate/rate.php';
-do_action(
-	'iworks-register-plugin',
-	plugin_basename( __FILE__ ),
-	__( 'upPrev', 'upprev' ),
-	'upprev'
-);

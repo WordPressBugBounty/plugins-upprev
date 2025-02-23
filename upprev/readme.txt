@@ -3,8 +3,8 @@ Contributors: iworks
 Donate link: https://ko-fi.com/iworks?utm_source=upprev&utm_medium=readme-donate
 Tags: box, notification, related, SEO, thumbnail
 Requires at least: 5.0
-Tested up to: 6.3
-Stable tag: 4.0.7
+Tested up to: 6.7
+Stable tag: 4.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -85,6 +85,12 @@ Visit: [upPrev: snippet archive](http://upprev.iworks.pl/tag/snippet)
 5. upPrev options: cache
 
 == Changelog ==
+
+= 4.1.0 (2025-02-23) =
+* The [iWorks Options](https://github.com/iworks/wordpress-options-class) module has been updated to 2.9.6.
+* The [iWorks Rate](https://github.com/iworks/iworks-rate) module has been updated to 2.2.3.
+* The `iworks/upprev/wp_query/args` filter has been added.
+* The `_load_textdomain_just_in_time()` notice has been fixed.
 
 = 4.0.7 (2022-06-02) =
 * Fixed fade effect. Props for [George](https://wordpress.org/support/users/giorgos93/).

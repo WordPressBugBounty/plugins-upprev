@@ -1,8 +1,9 @@
 <?php
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly
 /**
  * iWorks_Rate - Dashboard Notification module.
  *
- * @version 2.1.0
+ * @version 2.2.3
  * @author  iworks (Marcin Pietrzak)
  *
  */
@@ -15,7 +16,7 @@ if ( ! class_exists( 'iworks_rate' ) ) {
 		 * @since 1.0.1
 		 * @var   string
 		 */
-		private $version = '2.1.0';
+		private $version = '2.2.3';
 
 		/**
 		 * $wpdb->options field name.
@@ -45,6 +46,14 @@ if ( ! class_exists( 'iworks_rate' ) ) {
 		protected $stored = array();
 
 		/**
+		 * The Plugin ID
+		 *
+		 * @since 2.1.4
+		 * @var   string
+		 */
+		private $plugin_id;
+
+		/**
 		 * Initializes and returns the singleton instance.
 		 *
 		 * @since  1.0.0
@@ -67,7 +76,7 @@ if ( ! class_exists( 'iworks_rate' ) ) {
 			 * settings
 			 */
 			$this->stored = wp_parse_args(
-				get_site_option( $this->option_name, false, false ),
+				get_site_option( $this->option_name, false ),
 				array()
 			);
 			/**
@@ -116,18 +125,26 @@ if ( ! class_exists( 'iworks_rate' ) ) {
 			) {
 				$slug = $this->plugins[ $plugin_file ]['slug'];
 			}
-			$settings_page_url = esc_url( apply_filters( 'iworks_rate_settings_page_url_' . $slug, null ) );
+			$settings_page_url = apply_filters( 'iworks_rate_settings_page_url_' . $slug, null );
 			if ( ! empty( $settings_page_url ) ) {
 				$actions['settings'] = sprintf(
 					'<a href="%s">%s</a>',
-					$settings_page_url,
-					__( 'Settings', 'upprev' )
+					esc_url( $settings_page_url ),
+					esc_html__( 'Settings', 'upprev' )
 				);
 			}
 			$actions['donate'] = sprintf(
-				'<a href="https://ko-fi.com/iworks?utm_source=%s&utm_medium=plugin-links" target="_blank">%s</a>',
-				$slug,
-				__( 'Provide us a coffee', 'upprev' )
+				'<a href="%s" target="_blank">%s</a>',
+				esc_url(
+					add_query_arg(
+						array(
+							'utm_source' => $slug,
+							'utm_medium' => 'plugin-links',
+						),
+						'https://ko-fi.com/iworks'
+					)
+				),
+				esc_html__( 'Provide us a coffee', 'upprev' )
 			);
 			return $actions;
 		}
@@ -165,10 +182,16 @@ if ( ! class_exists( 'iworks_rate' ) ) {
 			if ( empty( $plugin_id ) || empty( $title ) || empty( $slug ) ) {
 				return;
 			}
-			$data                        = array(
+			/**
+			 * collect data
+			 */
+			$data = array(
 				'title' => $title,
 				'slug'  => $slug,
 			);
+			/**
+			 * add dat to plugins array
+			 */
 			$this->plugins[ $plugin_id ] = $data;
 			/**
 			 * check for option update
@@ -186,7 +209,7 @@ if ( ! class_exists( 'iworks_rate' ) ) {
 				$this->stored[ $plugin_id ] = wp_parse_args(
 					array(
 						'registered' => time(),
-						'show_at'    => time() + rand( 7, 14 ) * DAY_IN_SECONDS,
+						'show_at'    => $this->get_random_future_timestamp( 7, 14 ),
 						'rated'      => 0,
 						'hide'       => 0,
 					),
@@ -223,14 +246,44 @@ if ( ! class_exists( 'iworks_rate' ) ) {
 		 * @since  1.0.0
 		 */
 		public function ajax_button() {
-			$plugin_id = filter_input( INPUT_POST, 'plugin_id', FILTER_SANITIZE_STRING );
+			/**
+			 * Chekc nonce
+			 *
+			 * @since 2.1.4
+			 */
+			if ( ! check_ajax_referer( 'iworks-rate' ) ) {
+				wp_send_json_error();
+			}
+			/**
+			 * get plugin ID
+			 */
+			$nonce_value = sanitize_text_field( filter_input( INPUT_POST, '_wpnonce', FILTER_DEFAULT ) );
+			if ( ! wp_verify_nonce( $nonce_value, 'iworks-rate' ) ) {
+				wp_send_json_error();
+			}
+			$plugin_id = sanitize_text_field( filter_input( INPUT_POST, 'plugin_id', FILTER_DEFAULT ) );
 			if ( empty( $plugin_id ) ) {
 				wp_send_json_error();
 			}
+			/**
+			 * sanitize plugin_id
+			 *
+			 * @since 2.1.3
+			 */
+			$plugin_id = sanitize_text_field( $plugin_id );
 			if ( ! isset( $this->plugins[ $plugin_id ] ) ) {
 				wp_send_json_error();
 			}
-			switch ( filter_input( INPUT_POST, 'button', FILTER_SANITIZE_STRING ) ) {
+			/**
+			 * sanitize button value
+			 *
+			 * @since 2.1.3
+			 */
+			$value = '';
+			if ( isset( $_POST['button'] ) ) {
+				$value = sanitize_text_field( filter_input( INPUT_POST, 'button', FILTER_DEFAULT ) );
+			}
+			switch ( $value ) {
 				case '':
 				case 'add-review':
 					$this->add_weeks( $plugin_id );
@@ -258,7 +311,7 @@ if ( ! class_exists( 'iworks_rate' ) ) {
 			if ( ! isset( $this->stored[ $plugin_id ] ) ) {
 				return;
 			}
-			$this->stored[ $plugin_id ]['show_at'] = time() + rand( 2, 3 ) * WEEK_IN_SECONDS + rand( 0, 3 ) * DAY_IN_SECONDS;
+			$this->stored[ $plugin_id ]['show_at'] = $this->get_random_future_timestamp( 0, 7, 4, 6 );
 			$this->store_data();
 		}
 
@@ -266,7 +319,7 @@ if ( ! class_exists( 'iworks_rate' ) ) {
 			if ( ! isset( $this->stored[ $plugin_id ] ) ) {
 				return;
 			}
-			$this->stored[ $plugin_id ]['show_at'] = time() + rand( 10, 15 ) * WEEK_IN_SECONDS + rand( 0, 7 ) * DAY_IN_SECONDS;
+			$this->stored[ $plugin_id ]['show_at'] = $this->get_random_future_timestamp( 0, 14, 15, 30 );
 			$this->store_data();
 		}
 
@@ -385,6 +438,16 @@ if ( ! class_exists( 'iworks_rate' ) ) {
 		 * @since 2.0.1
 		 */
 		private function get_plugin_data_by_plugin_id( $plugin_id ) {
+			if ( ! isset( $this->plugins[ $plugin_id ] ) ) {
+				return new WP_Error(
+					'no-plugin',
+					sprintf(
+						/* translators: %s: plugin id */
+						esc_html__( 'There is no plugin with id: %s.', 'upprev' ),
+						$plugin_id
+					)
+				);
+			}
 			$plugin              = wp_parse_args(
 				$this->plugins[ $plugin_id ],
 				$this->stored[ $plugin_id ]
@@ -400,19 +463,39 @@ if ( ! class_exists( 'iworks_rate' ) ) {
 			if ( ! empty( $plugin['logo'] ) ) {
 				$plugin['classes'][] = 'has-logo';
 			}
-			$plugin['url']         = esc_url(
+			$plugin['url'] = esc_url(
 				sprintf(
+				/* translators: %s: plugin slug */
 					_x( 'https://wordpress.org/plugins/%s', 'plugins home', 'upprev' ),
 					$plugin['slug']
 				)
 			);
 			$plugin['support_url'] = esc_url(
 				sprintf(
+					/* translators: %s: plugin slug */
 					_x( 'https://wordpress.org/support/plugin/%s', 'plugins support home', 'upprev' ),
 					$plugin['slug']
 				)
 			);
-			return $plugin;
+			/**
+			 * Change plugin data.
+			 *
+			 * Allows to change generated plugin data.
+			 *
+			 * @since 2.1.4
+			 *
+			 * @param array $plugin {
+			 *     Plugin data.
+			 *
+			 *     @type string $plugin_id Plugin ID
+			 *     @type string $logo Logo URL
+			 *     @type string $ajax_url Admin AJAX URl
+			 *     @type array $classes CSS classes
+			 *     @type string $url Plugin repository URL
+			 *     @type string $support_url Plugin support URL
+			 * }
+			 */
+			return apply_filters( 'iworks_rate_plugin_data', $plugin );
 		}
 
 		/**
@@ -437,7 +520,10 @@ if ( ! class_exists( 'iworks_rate' ) ) {
 			}
 			$this->enqueue();
 			$plugin = $this->get_plugin_data_by_plugin_id( $plugin_id );
-			$file   = $this->get_file( 'support', 'widgets' );
+			if ( is_wp_error( $plugin ) ) {
+				return $content;
+			}
+			$file = $this->get_file( 'support', 'widgets' );
 			ob_start();
 			load_template( $file, true, $plugin );
 			$content = ob_get_contents();
@@ -455,7 +541,10 @@ if ( ! class_exists( 'iworks_rate' ) ) {
 			}
 			$this->enqueue();
 			$plugin = $this->get_plugin_data_by_plugin_id( $plugin_id );
-			$file   = $this->get_file( 'donate', 'widgets' );
+			if ( is_wp_error( $plugin ) ) {
+				return $content;
+			}
+			$file = $this->get_file( 'donate', 'widgets' );
 			ob_start();
 			load_template( $file, true, $plugin );
 			$content = ob_get_contents();
@@ -500,9 +589,59 @@ if ( ! class_exists( 'iworks_rate' ) ) {
 		 * @since 2.1.0
 		 */
 		private function get_install_plugin_url( $slug ) {
-			return wp_nonce_url( self_admin_url( 'update.php?action=install-plugin&plugin=' . $slug ), 'install-plugin_' . $slug );
+			return wp_nonce_url(
+				self_admin_url(
+					add_query_arg(
+						array(
+							'action' => 'install-plugin',
+							'plugin' => $slug,
+						),
+						'update.php'
+					)
+				),
+				'install-plugin_' . $slug
+			);
 		}
 
+		/**
+		 * Get random future timstamp
+		 *
+		 * @since 2.1.5
+		 */
+		private function get_random_future_timestamp( $day_min = 0, $day_max = 0, $week_min = 0, $week_max = 0 ) {
+			$time = time();
+			/**
+			 * DAY_IN_SECONDS
+			 */
+			$days = 0;
+			if ( 0 < $day_max ) {
+				$days = $this->rate_rand( $day_min, $day_max );
+			}
+			$time += $days * DAY_IN_SECONDS;
+			/**
+			 * WEEK_IN_SECONDS
+			 */
+			$weeks = 0;
+			if ( 0 < $week_max ) {
+				$weeks = $this->rate_rand( $week_min, $week_max );
+			}
+			$time += $weeks * WEEK_IN_SECONDS;
+			/**
+			 * returns
+			 */
+			return $time;
+		}
+
+		/**
+		 * copy of fnction wp_rand() from wp-includes/pluggable.php
+		 *
+		 */
+		private function rate_rand( $min = null, $max = null ) {
+			if ( function_exists( 'wp_rand' ) ) {
+				return wp_rand( $min, $max );
+			}
+			return mt_rand( $min, $max );
+		}
 	}
 
 	// Initialize the module.

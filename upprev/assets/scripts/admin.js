@@ -1,6 +1,6 @@
-/*! upPrev - v4.0.7
- * https://iworks.pl/
- * Copyright (c) 2022; * Licensed GPLv2+
+/*! upPrev - v4.1.0
+ * http://iworks.pl/
+ * Copyright (c) 2025; * Licensed GPLv2+
  */
 jQuery( document ).ready( function( $ ) {
     /**

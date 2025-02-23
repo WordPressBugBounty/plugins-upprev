@@ -6,10 +6,63 @@ Options Class for WordPress plugins &amp; themes
 Changelog
 ---------
 
-Y#### 2.8.4 (2022-04-04)
+##### 2.9.6 (2025-02-22)
+* Forms tags usage has been added to `wp_kses` allowed tags.  Props for [Rafał Siemiński](https://rafal.muko.pl/).
+
+##### 2.9.5 (2025-02-11)
+* The `wp_kses` usage has been added.
+* The `sanitize_text_field` users has been added.
+* The `sanitizatize_callback` method has been added to the `register_settings` calls.
+* The filter `iworks/options/wp_kses_allowed_html` has been added.
+* The `wp_unslash` function usage has been added.
+
+##### 2.9.4 (2025-01-26)
+* The `$option` array have been added to few filters.
+
+##### 2.9.3 (2025-01-26)
+* The filter `'iworks/options/filter/tr/before/' . $option_name` has been added.
+* The filter `'iworks/options/filter/tr/after/' . $option_name` has been added.
+* The filter `'iworks/options/filter/td/begin/' . $option_name` has been added.
+* The filter `'iworks/options/filter/td/end/' . $option_name` has been added.
+* The filter `'iworks/options/filter/th/begin/' . $option_name` has been added.
+* The filter `'iworks/options/filter/th/end/' . $option_name` has been added.
+
+##### 2.9.2 (2024-02-13)
+* The warning during plugin activation has been fixed. 
+
+##### 2.9.1 (2023-12-28)
+* Extra description for buttons has been removed.
+
+##### 2.9.0 (2023-12-19)
+* Loading assets has been fixed.
+
+##### 2.8.9 (2023-11-30)
+* The `date()` function has been replced by the `gmdate()` function.
+* The select2 jQuery libray has been updated to 4.0.13.
+* The deprecated `null` value in the `add_option()` function has been replced by `''`.
+
+##### 2.8.8 (2023-11-06)
+* The warnig for regex check on null value has been fixed.
+* The warning creation of dynamic property in the class has been fixed.
+
+##### 2.8.7 (2023-10-26)
+* One the data escaping has been removed.
+* The empty `index.php` file has been added to few directories.
+* The issue with undefined variable has been fixed.
+
+##### 2.8.6 (2023-10-13)
+* Data input sanitization has been added.
+* Escaping has been added.
+
+
+##### 2.8.5 (2022-06-20)
+* The creation of dynamic property has been removed. It causes a warning in PHP 8.2. Props for [waveman777](https://wordpress.org/support/users/waveman777/).
+* Select2 images has been optimized.
+
+##### 2.8.4 (2022-04-04)
 * Fixed PHP < 8 error.
 
-Y#### 2.8.3 (2022-04-04)
+##### 2.8.3 (2022-04-04)
 * Fixed `last_used_tab`.
 * Fixed `udefined` content in tabs.
 * Improved admin responsibility. Props for [tanohex](https://wordpress.org/support/users/tanohex/).
