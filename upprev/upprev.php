@@ -1,19 +1,14 @@
 <?php
 /*
-/*
- * Plugin Name:       upPrev
- * Plugin URI:        http://upprev.iworks.pl/
- * Description:       Display cool, animated fly-out or fade box with related content.
- * Requires at least: 5.0
- * Requires PHP:      7.2
- * Version:           4.1.0
- * Author:            Marcin Pietrzak
- * Author URI:        http://iworks.pl/
- * License:           GPLv2 or later
- * License URI:       http://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       upprev
- * Domain Path:       /languages
- *
+Plugin Name: upPrev
+Text Domain: upprev
+Plugin URI: https://github.com/iworks/upprev
+Description: Display cool, animated fly-out or fade box with related content.
+Version: 4.1.1
+Author: Marcin Pietrzak
+Author URI: http://iworks.pl/
+License: GPLv3 or later
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 Copyright 2011-2025 Marcin Pietrzak (marcin@iworks.pl)
 
@@ -31,15 +26,11 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
  */
-
-if ( ! defined( 'WPINC' ) ) {
-	die;
-}
-
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly
 /**
  * static options
  */
-define( 'IWORKS_UPPREV_VERSION', '4.1.0' );
+define( 'IWORKS_UPPREV_VERSION', '4.1.1' );
 define( 'IWORKS_UPPREV_PREFIX', 'iworks_upprev_' );
 
 require_once dirname( __FILE__ ) . '/includes/common.php';
