@@ -17,5 +17,5 @@ printf(
 echo '</p>';
 ?>
 <p class="iworks-rate-center"><a href="<?php echo esc_url( $args['install_plugin_url'] ); ?>" class="iworks-rate-button iworks-rate-button--green dashicons-admin-plugins
-"><?php echo esc_html( __( 'Install', 'upprev' ) ); ?></a></p>
+"><?php echo esc_html__( 'Install', 'upprev' ); ?></a></p>
 

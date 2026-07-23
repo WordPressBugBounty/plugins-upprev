@@ -2,25 +2,34 @@
 Contributors: iworks
 Donate link: https://ko-fi.com/iworks?utm_source=upprev&utm_medium=readme-donate
 Tags: box, notification, related, SEO, thumbnail
-Requires at least: 5.0
-Tested up to: 6.8
-Stable tag: 4.1.2
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Requires at least: 6.0
+Tested up to: 7.1
+Stable tag: 4.1.3
+License: GPLv3 or later
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 Display cool, animated fly-out or fade box with related content.
 
 == Description ==
 
-Display cool, animated fly-out or fade box with related content.
+**Boost your content engagement with upPrev!**
 
-When a reader scrolls to the bottom of a single post, page, or custom post type, an animate box will be shown allowing the reader to select the previous or random available post or posts in the selected configuration:
+upPrev displays an eye-catching, animated flyout or fade-in box with related or previous content when a reader nears the bottom of a post, page, or custom post type. Keep your visitors exploring your site by suggesting additional content right when their attention is highest.
 
-1. Just previous
-1. Previous in category
-1. Previous in tag
-1. Random
-1. Related using YARPP (only post/pages)
+**Features:**
+
+- Animated flyout or fade-in box for previous, random, or related posts
+- Multiple selection modes:
+    - Previous post
+    - Previous post in the same category
+    - Previous post with the same tag
+    - Random post
+    - Related posts using YARPP (Yet Another Related Posts Plugin)
+- Works with posts, pages, and custom post types
+- Easy customization of appearance and content
+- Mobile and tablet detection for optimal display
+- Integration with YARPP for advanced related post suggestions
+- Translation-ready with 14+ languages supported
 
 == Installation ==
 
@@ -88,9 +97,14 @@ Visit: [upPrev: snippet archive](http://upprev.iworks.pl/tag/snippet)
 
 Project maintained on GitHub at [iworks/upprev](https://github.com/iworks/upprev).
 
+= 4.1.3 - 2026-07-23 =
+* **Dependencies**: Updated the [iWorks Options](https://github.com/iworks/wordpress-options-class) module to version 3.1.1 and the [iWorks Rate](https://github.com/iworks/iworks-rate) module to version 2.3.2.
+* **Improvement**: Updated the build process.
+* **Improvement**: Renamed `CSS` files for better recognition.
+
 = 4.1.2 (2025-06-16) =
 * **iWorks Options Module Updated**: Updated the integrated [iWorks Options](https://github.com/iworks/wordpress-options-class) module to the latest version 3.0.7.
-* **iWorks Rate Module Updated**: Updated the integrated [iWorks Rate](https://github.com/iworks/iworks-rate) module to the latest version 2.9.9.
+* **iWorks Rate Module Updated**: Updated the integrated [iWorks Rate](https://github.com/iworks/iworks-rate) module to the latest version 3.0.1.
 
 = 4.1.1 (2025-03-24) =
 * **Translation Support Added**: Implemented translation support for GitHub releases, making the plugin more accessible to a global audience.
@@ -206,7 +220,7 @@ Project maintained on GitHub at [iworks/upprev](https://github.com/iworks/upprev
 * Add [iworks_upprev_check filter](http://upprev.iworks.pl/documentation/filter-reference/iworks_upprev_check), see documentation: [Filter Reference – iworks_upprev_check](http://upprev.iworks.pl/fiter_reference_iworks_upprev_check.html).
 
 = 3.3.21 =
-* Replaced WP_PLUGIN_URL with plugins_url() thx to [tigr](http://wordpress.org/support/profile/tigr) [SSL compatibility](http://wordpress.org/support/topic/ssl-compatibility).
+* Replaced WP_http://iworks.pl/iw_plugin/upprev/ with plugins_url() thx to [tigr](http://wordpress.org/support/profile/tigr) [SSL compatibility](http://wordpress.org/support/topic/ssl-compatibility).
 
 = 3.3.20 =
 * Updated IworksOptionClass to 1.7.4.

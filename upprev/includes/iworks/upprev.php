@@ -1,7 +1,7 @@
 <?php
 /*
 
-Copyright 2011-2025  Marcin Pietrzak (marcin@iworks.pl)
+Copyright 2011-2026  Marcin Pietrzak (marcin@iworks.pl)
 
 this program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License, version 2, as
@@ -237,7 +237,7 @@ class IworksUpprev {
 		/**
 		 * styles
 		 */
-		$file = '/assets/styles/frontend' . $this->dev . '.css';
+		$file = '/assets/styles/upprev-frontend' . $this->dev . '.css';
 		wp_register_style(
 			$name,
 			plugins_url( $file, $this->base ),
@@ -283,7 +283,7 @@ class IworksUpprev {
 		);
 		$file = 'assets/styles/frontend' . $this->dev . '.css';
 		wp_register_style( 'upprev', plugins_url( $file, $this->base ), array(), $this->get_version( $file ) );
-		$file = 'assets/styles/admin' . $this->dev . '.css';
+		$file = 'assets/styles/upprev-admin' . $this->dev . '.css';
 		wp_register_style( 'upprev-admin', plugins_url( $file, $this->base ), array( 'farbtastic' ), $this->get_version( $file ) );
 		/**
 		 * Settings on plugin page

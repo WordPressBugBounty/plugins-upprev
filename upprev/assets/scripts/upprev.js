@@ -1,6 +1,6 @@
-/*! upPrev - 4.1.2
- * https://github.com/iworks/upprev
- * Copyright (c) 2025
+/*! upPrev - 4.1.3
+ * http://iworks.pl/iw_plugin/upprev/
+ * Copyright (c) 2026
  * Licensed GPL-3.0 */
 jQuery(function($) {
     if ('undefined' == typeof(iworks_upprev)) {
