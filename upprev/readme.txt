@@ -4,7 +4,7 @@ Donate link: https://ko-fi.com/iworks?utm_source=upprev&utm_medium=readme-donate
 Tags: box, notification, related, SEO, thumbnail
 Requires at least: 6.0
 Tested up to: 7.1
-Stable tag: 4.1.3
+Stable tag: 4.1.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -96,6 +96,10 @@ Visit: [upPrev: snippet archive](http://upprev.iworks.pl/tag/snippet)
 == Changelog ==
 
 Project maintained on GitHub at [iworks/upprev](https://github.com/iworks/upprev).
+
+= 4.1.4 - 2026-08-28 =
+* **Dependencies**: Updated [Mobile Detect](http://mobiledetect.net/) to 3.74.4.
+* **Improvement**: Added check to custom CSS value to avoid parsing non-string values. Props for [Der-Bank-Blog](https://wordpress.org/support/users/der-bank-blog/).
 
 = 4.1.3 - 2026-07-23 =
 * **Dependencies**: Updated the [iWorks Options](https://github.com/iworks/wordpress-options-class) module to version 3.1.1 and the [iWorks Rate](https://github.com/iworks/iworks-rate) module to version 2.3.2.

@@ -1,4 +1,4 @@
-/*! upPrev - 4.1.3
+/*! upPrev - 4.1.4
  * http://iworks.pl/iw_plugin/upprev/
  * Copyright (c) 2026
  * Licensed GPL-3.0 */

@@ -4,7 +4,7 @@ Plugin Name: upPrev
 Text Domain: upprev
 Plugin URI: http://iworks.pl/iw_plugin/upprev/
 Description: Display cool, animated fly-out or fade box with related content.
-Version: 4.1.3
+Version: 4.1.4
 Author: Marcin Pietrzak
 Author URI: http://iworks.pl/
 License: GPLv3 or later
@@ -30,7 +30,7 @@ defined( 'ABSPATH' ) || exit; // Exit if accessed directly
 /**
  * static options
  */
-define( 'IWORKS_UPPREV_VERSION', '4.1.3' );
+define( 'IWORKS_UPPREV_VERSION', '4.1.4' );
 define( 'IWORKS_UPPREV_PREFIX', 'iworks_upprev_' );
 
 require_once dirname( __FILE__ ) . '/includes/common.php';
