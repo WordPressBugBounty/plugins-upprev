@@ -185,7 +185,7 @@ class iworks_options_logger {
                         $data,
                         array(
                             'plugin_name' => 'upprev',
-                            'plugin_version' => '4.1.4',
+                            'plugin_version' => '4.1.3',
                             'plugin_url' => 'http://iworks.pl/iw_plugin/upprev/',
                             'plugin_author' => sprintf( '<a href="%s">%s</a>', esc_url( 'http://iworks.pl/' ), esc_html( 'Marcin Pietrzak' ) ),
                         )
